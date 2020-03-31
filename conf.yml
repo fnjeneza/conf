@@ -48,6 +48,13 @@
       - .Xresources
       - .profile
 
+  - name: create config directory
+    become: yes
+    become_user: "{{ user }}"
+    file:
+      state: directory
+      path: ~/.config
+
   - name: remove i3 config
     become: yes
     become_user: "{{ user }}"
