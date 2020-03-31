@@ -1,7 +1,9 @@
 ---
 # Install a developer environment
 - name: "Setup developer environment"
-  hosts: localhost
+  hosts: 
+    localhost:
+      ansible_python_interpreter: /usr/bin/python3
 
   tasks:
   - name: "Update apt cache"
