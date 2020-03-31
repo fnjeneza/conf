@@ -9,7 +9,7 @@
   - name: "Add user {{ user }}"
     user:
       name: "{{ user }}"
-      groups: adm,cdrom,dialout,sudo,dip,floppy,plugdev,video,lpadmin,netdev 
+      groups: adm,cdrom,dialout,sudo,dip,floppy,plugdev,video,netdev 
       append: true
       state: present
 
