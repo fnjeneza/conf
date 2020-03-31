@@ -2,7 +2,8 @@
 # Install a developer environment
 - name: "Setup developer environment"
   hosts: localhost
-  user: toto
+  vars:
+    user: toto
 
   tasks:
   - name: "Add user {{ user }}"
