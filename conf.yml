@@ -1,7 +1,7 @@
 ---
 # Install a developer environment
 - name: "Setup developer environment"
-  hosts: target
+  hosts: localhost
 
   tasks:
   - name: "Update apt cache"
