@@ -1,18 +1,22 @@
 ---
 # Install a developer environment
 - name: "Setup developer environment"
-  hosts: 
-    localhost:
-      ansible_python_interpreter: /usr/bin/python3
+  hosts: localhost
+  user: toto
 
   tasks:
+  - name: "Add user {{ user }}"
+    user:
+      name: "{{ user }}"
+      groups: adm,cdrom,dialout,sudo,dip,floppy,plugdev,video,lpadmin,netdev 
+      append: true
+      present: true
+
   - name: "Update apt cache"
     apt: update_cache=yes
-    become: true
 
   - name: Install apps
     apt: name={{ item }} state=latest
-    become: true
     with_items:
       - xorg
       - firefox-esr
@@ -22,11 +26,15 @@
       - git
 
   - name: "clone dotfiles"
+    become: yes
+    become_user: "{{ user }}"
     git:
       repo: https://github.com/fnjeneza/dotfiles.git
       dest: ~/.dotfiles
 
   - name: create links to dotfiles
+    become: yes
+    become_user: "{{ user }}"
     file:
       force: yes
       state: link
@@ -40,11 +48,15 @@
       - .profile
 
   - name: remove i3 config
+    become: yes
+    become_user: "{{ user }}"
     file:
       state: absent
       path: ~/.config/i3
 
   - name: create links to dotfiles for i3 config
+    become: yes
+    become_user: "{{ user }}"
     file:
       force: yes
       state: link
@@ -57,9 +69,13 @@
   #     dest: /tmp/
 
   - name: Clone Vundle git repo
+    become: yes
+    become_user: "{{ user }}"
     git:
       repo: https://github.com/VundleVim/Vundle.vim.git
       dest: ~/.vim/bundle/Vundle.vim
 
   - name: Install vim plugins
+    become: yes
+    become_user: "{{ user }}"
     command: "echo ' ' > vim +PluginInstall +qall"
