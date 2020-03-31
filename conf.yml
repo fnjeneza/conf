@@ -11,7 +11,7 @@
       name: "{{ user }}"
       groups: adm,cdrom,dialout,sudo,dip,floppy,plugdev,video,lpadmin,netdev 
       append: true
-      present: true
+      state: present
 
   - name: "Update apt cache"
     apt: update_cache=yes
