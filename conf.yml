@@ -44,7 +44,7 @@
     with_items:
       - .tmux.conf
       - .bashrc
-      - .vimrc
+      #- .vimrc
       - .Xresources
       - .profile
 
