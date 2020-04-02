@@ -3,12 +3,18 @@
 - name: "Setup developer environment"
   hosts: localhost
   vars:
-    user: toto
+    username: ''
 
   tasks:
-  - name: "Add user {{ user }}"
+  - debug:
+      msg: Username {{ username }}
+  - fail:
+      msg: "username variable is not defined"
+    when: username == ''
+
+  - name: "Add user {{ username }}"
     user:
-      name: "{{ user }}"
+      name: "{{ username }}"
       groups: adm,cdrom,dialout,sudo,dip,floppy,plugdev,video,netdev 
       append: true
       state: present
