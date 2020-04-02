@@ -1,6 +1,10 @@
 #!/bin/bash
 
 NEW_USER=$1
+if [ -z $NEW_USER ]; then
+  echo "Username shall be provided"
+  exit
+fi
 ENV_DIR=`mktemp -d`
 INVENTORY=$ENV_DIR/inventory
 
