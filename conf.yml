@@ -13,7 +13,7 @@
   - name: "Add user {{ username }}"
     user:
       name: "{{ username }}"
-      groups: adm,cdrom,dialout,sudo,dip,floppy,plugdev,video,netdev 
+      groups: adm,cdrom,dialout,sudo,dip,floppy,plugdev,video,netdev
       append: true
       state: present
 
@@ -31,6 +31,7 @@
       - git
       - sudo
       - nfs-common
+      - net-tools
 
   - name: "clone dotfiles"
     become: yes
