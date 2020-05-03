@@ -31,7 +31,6 @@
       - git
       - sudo
       - nfs-common
-      - net-tools
 
   - name: "clone dotfiles"
     become: yes
