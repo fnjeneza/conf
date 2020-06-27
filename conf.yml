@@ -26,7 +26,6 @@
       - xorg
       - firefox-esr
       - tmux
-      - vim
       - i3
       - git
       - sudo
@@ -81,15 +80,3 @@
   #   copy:
   #     src: ~/.dotfiles/stterm
   #     dest: /tmp/
-
-  - name: Clone Vundle git repo
-    become: yes
-    become_user: "{{ username }}"
-    git:
-      repo: https://github.com/VundleVim/Vundle.vim.git
-      dest: ~/.vim/bundle/Vundle.vim
-
-  - name: Install vim plugins
-    become: yes
-    become_user: "{{ username }}"
-    command: "echo ' ' > vim +PluginInstall +qall"
