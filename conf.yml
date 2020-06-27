@@ -53,6 +53,15 @@
       - .Xresources
       - .profile
 
+  - name: create link for coc-settings
+    become: yes
+    become_user: "{{ username }}"
+    file:
+      force: yes
+      state: link
+      src: ~/.dotfiles/coc-settings.json
+      dest: ~/.vim/coc-settings.json
+
   - name: create config directory
     become: yes
     become_user: "{{ username }}"
