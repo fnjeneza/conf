@@ -81,6 +81,10 @@
   #   copy:
   #     src: ~/.dotfiles/stterm
   #     dest: /tmp/
+  - name: Install node
+    become: yes
+    become_user: "{{ username }}"
+    shell: curl -sL install-node.now.sh/lts | bash  -s -- --prefix ~/.local/
 
   - name: Clone Vundle git repo
     become: yes
