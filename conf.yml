@@ -61,6 +61,13 @@
       state: directory
       path: ~{{ username }}/.vim
 
+  - name: .local/bin folder shall be present
+    become: yes
+    become_user: "{{ username }}"
+    file:
+      state: directory
+      path: ~{{ username }}/.local/bin
+
   - name: create link for coc-settings
     become: yes
     become_user: "{{ username }}"
