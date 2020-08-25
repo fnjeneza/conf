@@ -101,15 +101,3 @@
     become: yes
     become_user: "{{ username }}"
     shell: curl -sL install-node.now.sh/lts | bash  -s -- --prefix ~/.local/
-
-  - name: Clone Vundle git repo
-    become: yes
-    become_user: "{{ username }}"
-    git:
-      repo: https://github.com/VundleVim/Vundle.vim.git
-      dest: ~/.vim/bundle/Vundle.vim
-
-  - name: Install vim plugins
-    become: yes
-    become_user: "{{ username }}"
-    command: "echo ' ' > vim +PluginInstall +qall"
