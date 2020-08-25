@@ -37,7 +37,7 @@
     become_user: "{{ username }}"
     git:
       repo: https://github.com/fnjeneza/dotfiles.git
-      dest: ~/.dotfiles
+      dest: ~{{ username }}/.dotfiles
 
   - name: create links to dotfiles
     become: yes
@@ -45,8 +45,8 @@
     file:
       force: yes
       state: link
-      src: ~/.dotfiles/{{item}}
-      dest: ~/{{item}}
+      src: ~{{ username }}/.dotfiles/{{item}}
+      dest: ~{{ username }}/{{item}}
     with_items:
       - .tmux.conf
       - .bashrc
@@ -60,22 +60,22 @@
     file:
       force: yes
       state: link
-      src: ~/.dotfiles/coc-settings.json
-      dest: ~/.vim/coc-settings.json
+      src: ~{{ username }}/.dotfiles/coc-settings.json
+      dest: ~{{ username }}/.vim/coc-settings.json
 
   - name: create config directory
     become: yes
     become_user: "{{ username }}"
     file:
       state: directory
-      path: ~/.config
+      path: ~{{ username }}/.config
 
   - name: remove i3 config
     become: yes
     become_user: "{{ username }}"
     file:
       state: absent
-      path: ~/.config/i3
+      path: ~{{ username }}/.config/i3
 
   - name: create links to dotfiles for i3 config
     become: yes
@@ -83,21 +83,21 @@
     file:
       force: yes
       state: link
-      src: ~/.dotfiles/i3
-      dest: ~/.config/i3
+      src: ~{{ username }}/.dotfiles/i3
+      dest: ~{{ username }}/.config/i3
 
   # - name: Compile and install stterm
   #   copy:
-  #     src: ~/.dotfiles/stterm
+  #     src: ~{{ username }}/.dotfiles/stterm
   #     dest: /tmp/
   - name: Install docker-compose
     become: yes
     become_user: "{{ username }}"
     shell: |
-      curl -L --fail https://github.com/docker/compose/releases/download/1.26.2/run.sh -o ~/.local/bin/docker-compose
-      chmod +x ~/.local/bin/docker-compose
+      curl -L --fail https://github.com/docker/compose/releases/download/1.26.2/run.sh -o ~{{ username }}/.local/bin/docker-compose
+      chmod +x ~{{ username }}/.local/bin/docker-compose
 
   - name: Install node
     become: yes
     become_user: "{{ username }}"
-    shell: curl -sL install-node.now.sh/lts | bash  -s -- --prefix ~/.local/
+    shell: curl -sL install-node.now.sh/lts | bash  -s -- --prefix ~{{ username }}/.local/
