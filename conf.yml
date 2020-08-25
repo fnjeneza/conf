@@ -68,6 +68,13 @@
       state: directory
       path: ~{{ username }}/.local/bin
 
+  - name: .local/lib folder shall be present
+    become: yes
+    become_user: "{{ username }}"
+    file:
+      state: directory
+      path: ~{{ username }}/.local/lib
+
   - name: create link for coc-settings
     become: yes
     become_user: "{{ username }}"
@@ -114,4 +121,4 @@
   - name: Install node
     become: yes
     become_user: "{{ username }}"
-    shell: curl -sL install-node.now.sh/lts | bash  -s -- --prefix ~{{ username }}/.local/
+    shell: curl -sL install-node.now.sh/lts | bash  -s -- --prefix ~{{ username }}/.local/ --yes
