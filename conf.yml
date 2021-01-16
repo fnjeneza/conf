@@ -45,6 +45,7 @@
       path: ~{{ username }}/.dotfiles
       owner: "{{ username }}"
       group: "{{ username }}"
+      recurse: true
 
   - name: create links to dotfiles
     file:
@@ -67,6 +68,7 @@
       path: ~{{ username }}/.vim
       owner: "{{ username }}"
       group: "{{ username }}"
+      recurse: true
       
   - name: .local/bin folder shall be present
     file:
@@ -135,3 +137,4 @@
       path: ~{{ username }}/.local
       owner: "{{ username }}"
       group: "{{ username }}"
+      recurse: true
