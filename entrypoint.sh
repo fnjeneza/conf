@@ -8,6 +8,7 @@ fi
 ENV_DIR=`mktemp -d`
 INVENTORY=$ENV_DIR/inventory
 
+apt update && apt install -y git python3-venv
 python3 -m venv $ENV_DIR
 source $ENV_DIR/bin/activate
 pip install ansible
