@@ -118,10 +118,11 @@
       group: "{{ username }}"
 
   - name: build st
+    become: yes
+    become_user: "{{ username }}"
     shell: |
       podman build -t st -f ~{{ username }}/.dotfiles/stterm/st.Containerfile $HOME
-      podman run --rm -ti -v /tmp/usr:/app st
-      cp -r /tmp/usr/local/* /usr/local/
+      podman run --rm -ti -v ~{{ username }}/.local:/usr/local st
 
   - name: Install docker-compose
     become: yes
