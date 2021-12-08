@@ -34,11 +34,6 @@
       - curl
       - podman
 
-  - name: Remove .dotfiles if exist
-    file:
-      path: ~{{ username }}/.dotfiles
-      state: absent
-
   - name: "clone dotfiles"
     become: yes
     become_user: "{{ username }}"
@@ -126,7 +121,7 @@
     become: yes
     become_user: "{{ username }}"
     shell: |
-      podman build -t st -f ~{{ username }}/.dotfiles/st.Containerfile $HOME
+      podman build -t st -f ~{{ username }}/.dotfiles/stterm/st.Containerfile $HOME
       podman run --rm -ti -v /tmp/usr:/app st
       cp -r /tmp/usr/local/* /usr/local/
 
