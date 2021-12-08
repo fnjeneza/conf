@@ -34,6 +34,11 @@
       - curl
       - podman
 
+  - name: Remove .dotfiles if exist
+    file:
+      path: ~{{ username }}/.dotfiles
+      state: absent
+
   - name: "clone dotfiles"
     become: yes
     become_user: "{{ username }}"
