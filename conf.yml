@@ -32,6 +32,7 @@
       - nfs-common
       - python3-venv
       - curl
+      - podman
 
   - name: "clone dotfiles"
     become: yes
@@ -39,7 +40,7 @@
     git:
       repo: https://github.com/fnjeneza/dotfiles.git
       dest: ~{{ username }}/.dotfiles
-      
+
   - name: Change owner/group of .dotfiles
     file:
       path: ~{{ username }}/.dotfiles
@@ -69,13 +70,13 @@
       owner: "{{ username }}"
       group: "{{ username }}"
       recurse: true
-      
+
   - name: .local/bin folder shall be present
     file:
       state: directory
       path: ~{{ username }}/.local/bin
       owner: "{{ username }}"
-      group: "{{ username }}"    
+      group: "{{ username }}"
 
   - name: .local/lib folder shall be present
     file:
@@ -83,7 +84,7 @@
       path: ~{{ username }}/.local/lib
       owner: "{{ username }}"
       group: "{{ username }}"
-      
+
   - name: create link for coc-settings
     file:
       force: yes
@@ -116,10 +117,14 @@
       owner: "{{ username }}"
       group: "{{ username }}"
 
-  # - name: Compile and install stterm
-  #   copy:
-  #     src: ~{{ username }}/.dotfiles/stterm
-  #     dest: /tmp/
+  - name: build st
+    become: yes
+    become_user: "{{ username }}"
+    shell: |
+      podman build -t st -f ~{{ username }}/.dotfiles/st.Containerfile $HOME
+      podman run --rm -ti -v /tmp/usr:/app st
+      cp -r /tmp/usr/local/* /usr/local/
+
   - name: Install docker-compose
     become: yes
     become_user: "{{ username }}"
@@ -131,7 +136,7 @@
     become: yes
     become_user: "{{ username }}"
     shell: curl -sL install-node.now.sh/lts | bash  -s -- --prefix ~{{ username }}/.local/ --yes
-    
+
   - name: Change owner/group of .local
     file:
       path: ~{{ username }}/.local
