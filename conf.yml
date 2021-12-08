@@ -118,6 +118,8 @@
       group: "{{ username }}"
 
   - name: build st
+    become: yes
+    become_user: "{{ username }}"
     shell: |
       podman build -t st -f ~{{ username }}/.dotfiles/stterm/st.Containerfile $HOME
       podman run --rm -ti -v ~{{ username }}/.local:/usr/local st
