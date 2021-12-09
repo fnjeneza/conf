@@ -117,6 +117,7 @@
     ansible.builtin.unarchive:
       src: https://download-installer.cdn.mozilla.net/pub/devedition/releases/96.0b2/linux-x86_64/fr/firefox-96.0b2.tar.bz2
       dest: ~{{ username }}/.firefox
+      extra_opts: [--strip-components=1]
       remote_src: yes
 
   - name: create links to firefox developer edition
