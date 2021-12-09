@@ -124,7 +124,7 @@
       force: yes
       state: link
       src: ~{{ username }}/.firefox/firefox
-      dest: ~{{ username }}/.local/bin
+      dest: ~{{ username }}/.local/bin/firefox
       owner: "{{ username }}"
       group: "{{ username }}"
 
