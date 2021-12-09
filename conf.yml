@@ -126,6 +126,23 @@
       chown -R {{ username }}:{{ username }} $TEMP
       rsync -avz $TEMP/ ~{{ username }}/.local
 
+  - name: Install firefox developer edition
+    become: yes
+    become_user: "{{ username }}"
+    ansible.builtin.unarchive:
+      src: https://download-installer.cdn.mozilla.net/pub/devedition/releases/96.0b2/linux-x86_64/fr/firefox-96.0b2.tar.bz2
+      dest: ~{{ username }}/.firefox
+      remote_src: yes
+
+  - name: create links to firefox developer edition
+    file:
+      force: yes
+      state: link
+      src: ~{{ username }}/.firefox/firefox
+      dest: ~{{ username }}/.local/bin
+      owner: "{{ username }}"
+      group: "{{ username }}"
+
   - name: Install docker-compose
     become: yes
     become_user: "{{ username }}"
