@@ -139,10 +139,3 @@
     become: yes
     become_user: "{{ username }}"
     shell: curl -sL install-node.now.sh/lts | bash  -s -- --prefix ~{{ username }}/.local/ --yes
-
-  - name: Change owner/group of .local
-    file:
-      path: ~{{ username }}/.local
-      owner: "{{ username }}"
-      group: "{{ username }}"
-      recurse: true
