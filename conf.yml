@@ -64,27 +64,19 @@
       - .Xresources
       - .profile
 
-  - name: .vim folder shall be present
+  - name: Create mandatory directories
     file:
       state: directory
-      path: ~{{ username }}/.vim
+      path: ~{{ username }}/{{item}}
       owner: "{{ username }}"
       group: "{{ username }}"
       recurse: true
-
-  - name: .local/bin folder shall be present
-    file:
-      state: directory
-      path: ~{{ username }}/.local/bin
-      owner: "{{ username }}"
-      group: "{{ username }}"
-
-  - name: .local/lib folder shall be present
-    file:
-      state: directory
-      path: ~{{ username }}/.local/lib
-      owner: "{{ username }}"
-      group: "{{ username }}"
+    with_items:
+      - .vim
+      - .local/bin
+      - .local/lib
+      - .firefox
+      - .config
 
   - name: create link for coc-settings
     file:
@@ -92,13 +84,6 @@
       state: link
       src: ~{{ username }}/.dotfiles/coc-settings.json
       dest: ~{{ username }}/.vim/coc-settings.json
-      owner: "{{ username }}"
-      group: "{{ username }}"
-
-  - name: create config directory
-    file:
-      state: directory
-      path: ~{{ username }}/.config
       owner: "{{ username }}"
       group: "{{ username }}"
 
