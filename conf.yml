@@ -122,7 +122,9 @@
       TEMP=`mktemp -d`
       podman build -t st -f ~{{ username }}/.dotfiles/stterm/st.Containerfile $TEMP
       podman run --rm -ti -v $TEMP/local:/usr/local st
+      chown -R {{ username }}:{{ username }} $TEMP/local
       cp -r $TEMP/local/ ~{{ username }}/.local
+      
       
 
   - name: Install docker-compose
