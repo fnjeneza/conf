@@ -14,6 +14,7 @@
     user:
       name: "{{ username }}"
       groups: adm,cdrom,dialout,sudo,dip,floppy,plugdev,video,netdev
+      shell: /bin/bash
       append: true
       state: present
 
